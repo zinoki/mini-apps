@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src='app.js'></script>
         <style type="text/css">
         td {
             padding: 50px 50px;
             border: 5px solid;
+        }
+        caption {
+            font-size: 30px;
+            font-weight: bold;
         }
         #square-0, #square-1, #square-2, #square-3, #square-4, #square-5, #square-6, #square-7, #square-8 {
             font-size: 50px;
@@ -13,27 +16,32 @@
         </style>
     </head>
     <body>
-        <h1>Zack's Tic-Tac-Toe</h1>
-        <div id='game'>
-        </div>
+        <!-- <h1>Zack's Tic-Tac-Toe</h1> -->
+        <div id="settings">
+            <form id="username">Please enter your name</form>
+            Score Count
+        </div >
+        <button id="reset" onclick="resetGame()">Reset Game</button>
         <table id="board">
             <caption>Tic-Tac-Toe</caption>
             <tr>
-                <td><div id="square-0">X</div></td>
-                <td><div id="square-1">X</div></td>
-                <td><div id="square-2">O </div></td>
+                <td><div class="square" id="square-0">X</div></td>
+                <td><div class="square" id="square-1">X</div></td>
+                <td><div class="square" id="square-2">O </div></td>
             </tr>
             <tr>
-                <td><div id="square-3">X </div></td>
-                <td><div id="square-4">O </div></td>
-                <td><div id="square-5"> X</div></td>
+                <td><div class="square" id="square-3">X </div></td>
+                <td><div class="square" id="square-4">O </div></td>
+                <td><div class="square" id="square-5"> X</div></td>
             </tr>
             <tr>
-                <td><div id="square-6"> O</div></td>
-                <td><div id="square-7"> X</div></td>
-                <td><div id="square-8"> O</div></td>
+                <td><div class="square" id="square-6"> O</div></td>
+                <td><div class="square" id="square-7"> X</div></td>
+                <td><div class="square" id="square-8"> O</div></td>
             </tr>
         </table>
+        
 
     </body>
+    <script src='app.js'></script>
 </html>
