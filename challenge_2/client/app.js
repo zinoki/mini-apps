@@ -1,7 +1,4 @@
-// ajax request
-
 var server = "http://localhost:3000/";
-// make sure you can grab data from form 
 
 
 var handlePost = function(data) {
@@ -10,31 +7,16 @@ var handlePost = function(data) {
         data: JSON.stringify(data),
         contentType: 'application/json',
         url: server,
-        success: function(data) {
+        success: function(response) {
             console.log('success');
-            console.log(JSON.stringify(data));
+            console.log(response);
+            $('#csv').html("" + response.input);
         }
     });
 }
 
 $("#jsonForm").submit(function() {
-    console.log($("#jsonData").val())
-    var data = {body: $("#jsonData").val()}
+    var data = {input: $("#jsonData").val()}
     handlePost(data);
     return false;
 })
-
-
-
-
-// $.ajax({
-//     type: "POST",
-//     url: server,
-//     data: data,
-
-// })
-
-// $.post( server, function( data ) {
-//     $( "#test" ).html( data );
-//     console.log(data);
-//   });
