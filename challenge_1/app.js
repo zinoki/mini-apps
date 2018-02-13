@@ -21,7 +21,7 @@ var nextPlayer = player_o;
 
 
 // View
-
+// renders the board based on the boardMatrix array
 var render = function() {
     var squares = document.getElementsByClassName("square");
     for (var i = 0; i < squares.length; i++) {
@@ -29,13 +29,23 @@ var render = function() {
     }
 }
 
+
+// Controller
+// check for conflict
+var isOpen = function(divID) {
+    return (!boardMatrix[squares[divID]])
+}
+
+// put's current player's piece in empty spots
 var toggleSquare = function(divID) {
-    boardMatrix[squares[divID]] = currentPlayer;
-    var tempPlayer = '';
-    tempPlayer = currentPlayer;
-    currentPlayer = nextPlayer;
-    nextPlayer = tempPlayer;
-    render()
+    if (isOpen(divID)) {
+        boardMatrix[squares[divID]] = currentPlayer;
+        var tempPlayer = '';
+        tempPlayer = currentPlayer;
+        currentPlayer = nextPlayer;
+        nextPlayer = tempPlayer;
+        render()
+    }
 }
 
 // add event listeners
@@ -54,11 +64,7 @@ addListener('square_7')
 addListener('square_8')
 
 
-
-
-
-
-
+// resetGame is called when reset button is clicked
 var resetGame = function() {
     var squares = document.getElementsByClassName("square");
     for (var i = 0; i < squares.length; i++) {
