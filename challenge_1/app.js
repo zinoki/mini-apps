@@ -15,10 +15,11 @@ var squares = {
 var boardMatrix = [null, null, null, null, null, null, null, null, null];
 var currentPlayer = 'X';
 var nextPlayer = 'O';
-var score_one = 0;
-var score_two = 0;
 
-
+var playerScores = {
+    O: 0,
+    X: 0
+}
 
 
 // View
@@ -28,7 +29,9 @@ var render = function() {
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = boardMatrix[i];
     }
+
     checkWin();
+    
 }
 
 
@@ -65,10 +68,7 @@ var makeArrayOfArrays = function(boardMatrix) {
 var checkRow = function(array) {
     var player = array[0];
     if (player !== null && (array[0] === array[1]) && (array[1] === array[2])) {
-        document.getElementById('winner').innerHTML = "Player " + player + ' wins!'
-        setTimeout(() => {
-            resetGame();
-        }, 100);
+        winHandler(player)
     }
 }
 
@@ -86,21 +86,20 @@ var checkColumns = function() {
     for (var i = 0; i < 3; i++) {
         var player = matrix[0][i];
         if (player !== null && matrix[0][i] === matrix[1][i] && matrix[1][i] === matrix[2][i]) {
-            document.getElementById('winner').innerHTML = "Player " + player + ' wins!'
-            setTimeout(() => {
-                resetGame();
-            }, 100);
+            winHandler(player);
         }
     }
 }
 
 // check diagonals
 var checkDiagonal = function() {
+    var player = boardMatrix[0];
     if (boardMatrix[0] !== null && boardMatrix[0] === boardMatrix[4] && boardMatrix[4] === boardMatrix[8]) {
-        console.log('win')
+        winHandler(player)
     }
+    var player = boardMatrix[2];
     if (boardMatrix[2] !== null && boardMatrix[2] === boardMatrix[4] && boardMatrix[4] === boardMatrix[6]) {
-        console.log('win')
+        winHandler(player)
     }
 }
 
@@ -109,6 +108,15 @@ var checkWin = function() {
     checkRows();
     checkColumns();
     checkDiagonal();
+}
+
+var winHandler = function(player) {
+    playerScores[player]++;
+    setTimeout(() => {
+        resetGame();
+    }, 100);
+    document.getElementById("score").innerHTML = "Player O: " + playerScores['O'] + " Player X: " + playerScores['X'];
+    return playerScores[player]
 }
 
 // add event listeners
