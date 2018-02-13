@@ -36,6 +36,8 @@ var isOpen = function(divID) {
     return (!boardMatrix[squares[divID]])
 }
 
+
+
 // put's current player's piece in empty spots
 var toggleSquare = function(divID) {
     if (isOpen(divID)) {
@@ -46,6 +48,17 @@ var toggleSquare = function(divID) {
         nextPlayer = tempPlayer;
         render()
     }
+}
+
+// check for end of game
+var isWin = function(boardMatrix) {
+
+}
+
+// check for row win
+var isRowWin = function(boardMatrix) {
+    var row0col0 = boardMatrix[0];
+    var row1col0
 }
 
 // add event listeners
@@ -66,9 +79,7 @@ addListener('square_8')
 
 // resetGame is called when reset button is clicked
 var resetGame = function() {
-    var squares = document.getElementsByClassName("square");
-    for (var i = 0; i < squares.length; i++) {
-        squares[i].innerHTML = "";
-    }
+    boardMatrix = [null, null, null, null, null, null, null, null, null];
+    render();
 }
 
