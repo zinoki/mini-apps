@@ -1,4 +1,5 @@
 // Model
+// div tag relative to array position
 var squares = {
     square_0: 0,
     square_1: 1,
@@ -10,12 +11,10 @@ var squares = {
     square_7: 7,
     square_8: 8
 };
-
+// initial setup
 var boardMatrix = [null, null, null, null, null, null, null, null, null];
-var player_x = 'X';
-var player_o = 'O';
-var currentPlayer = player_x;
-var nextPlayer = player_o;
+var currentPlayer = 'X';
+var nextPlayer = 'O';
 
 
 
@@ -27,6 +26,8 @@ var render = function() {
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = boardMatrix[i];
     }
+    // if iswin
+      // display Player __ wins
 }
 
 
@@ -51,13 +52,25 @@ var toggleSquare = function(divID) {
 }
 
 // check for end of game
-var isWin = function(boardMatrix) {
-
+var makeArrayOfArrays = function(array) {
+    var matrix = [];
+    for (var i = 0; i < 3; i++) {
+        matrix.push([array[0 + i], array[1 + i], array[2 + i]]);
+    }
+    return matrix;
 }
 
-// check for row win
-var isRowWin = function(boardMatrix) {
-}
+// // check row is win
+// var checkRow = function(array) {
+
+// }
+// var checkRows = function(boardMatrix) {
+//     var matrix = makeArrayOfArrays(boardMatrix);
+//     for (var i = 0; i < matrix.length; i++) {
+
+//     }
+// }
+
 
 
 // add event listeners
@@ -74,6 +87,8 @@ for (var key in squares) {
 // resetGame is called when reset button is clicked
 var resetGame = function() {
     boardMatrix = [null, null, null, null, null, null, null, null, null];
+    currentPlayer = 'X';
+    nextPlayer = 'O';
     render();
 }
 
