@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+td {
+    padding: 50px 50px;
+    border: 5px solid;
+    width: 50px;
+    height: 50px;
+}
+caption {
+    font-size: 30px;
+    font-weight: bold;
+}
+#square_0, #square_1, #square_2, #square_3, #square_4, #square_5, #square_6, #square_7, #square_8 {
+    font-size: 60px;
+    float: left;
+}

@@ -16,10 +16,12 @@ var boardMatrix = [null, null, null, null, null, null, null, null, null];
 var currentPlayer = 'X';
 var nextPlayer = 'O';
 
+
 var playerScores = {
     O: 0,
     X: 0
 }
+document.getElementById("score").innerHTML = "Player O: " + playerScores['O'] + " Player X: " + playerScores['X'];
 
 
 // View
