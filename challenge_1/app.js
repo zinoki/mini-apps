@@ -6,56 +6,58 @@ var currentPlayer = player_x;
 var nextPlayer = player_o;
 
 
+
+
 // View
+
 var render = function() {
     var squares = document.getElementsByClassName("square");
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = boardMatrix[i];
     }
 }
-render();
-
-// Controller
 
 
+// render()
 
 
-var toggleSquare = function() {
-    // input the player's piece in the square that was clicked on
+var toggleSquare = function(divID) {
+    var square = document.getElementById(divID);
     var tempPlayer = '';
-    var square = document.getElementById("square-1");
+    // var square = document.getElementById("square-1");
+    console.log('hi')
     square.innerHTML = currentPlayer;
     tempPlayer = currentPlayer;
     currentPlayer = nextPlayer;
     nextPlayer = tempPlayer;
-  }
+    // render()
+}
 
-// Player X starts first
-// app detects win or tie and displays appropriate message 
-// button resets new round of gameplay
+// add event listeners
+var addListener = function(divID) {
+    var square = document.getElementById(divID);
+    square.addEventListener('click', () => (toggleSquare(divID)));
+}
+addListener('square-0')
+addListener('square-1')
+addListener('square-2')
+addListener('square-3')
+addListener('square-4')
+addListener('square-5')
+addListener('square-6')
+addListener('square-7')
+addListener('square-8')
 
-// event handler to toggleSquare
-// toggleSquare takes in a player and toggles the square that is clicked on 
-// while the game is not over it concludes the function by changing the event handler to toggle square to other player's piece
 
 
 
-
-
-
-
-toggleSquare();
-// event handler
 
 
 
 var resetGame = function() {
-    // grab all elements on table
-    // change innerHTML to be ""
     var squares = document.getElementsByClassName("square");
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = "";
     }
 }
 
-// resetGame();
