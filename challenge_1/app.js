@@ -57,24 +57,18 @@ var isWin = function(boardMatrix) {
 
 // check for row win
 var isRowWin = function(boardMatrix) {
-    var row0col0 = boardMatrix[0];
-    var row1col0
 }
+
 
 // add event listeners
 var addListener = function(divID) {
     var square = document.getElementById(divID);
     square.addEventListener('click', () => (toggleSquare(divID)));
 }
-addListener('square_0')
-addListener('square_1')
-addListener('square_2')
-addListener('square_3')
-addListener('square_4')
-addListener('square_5')
-addListener('square_6')
-addListener('square_7')
-addListener('square_8')
+
+for (var key in squares) {
+    addListener(key);
+}
 
 
 // resetGame is called when reset button is clicked
