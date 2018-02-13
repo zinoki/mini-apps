@@ -15,6 +15,8 @@ var squares = {
 var boardMatrix = [null, null, null, null, null, null, null, null, null];
 var currentPlayer = 'X';
 var nextPlayer = 'O';
+var score_one = 0;
+var score_two = 0;
 
 
 
@@ -26,10 +28,7 @@ var render = function() {
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = boardMatrix[i];
     }
-
-    checkRows(boardMatrix);
-    // if iswin
-      // display Player __ wins
+    checkWin();
 }
 
 
@@ -66,23 +65,51 @@ var makeArrayOfArrays = function(boardMatrix) {
 var checkRow = function(array) {
     var player = array[0];
     if (player !== null && (array[0] === array[1]) && (array[1] === array[2])) {
-        console.log(player + ' wins!');
+        document.getElementById('winner').innerHTML = "Player " + player + ' wins!'
+        setTimeout(() => {
+            resetGame();
+        }, 100);
     }
 }
 
-var checkRows = function(boardMatrix) {
+// check all rows
+var checkRows = function() {
     var matrix = makeArrayOfArrays(boardMatrix);
     for (var i = 0; i < 3; i++) {
         checkRow(matrix[i]);
     }
 }
 
-// var checkColumn = function(boardMatrix) {
-//     for (var i = 0; i < 3; i++) {
-//         if (boar)
-//     }
-// }
+// check one column
+var checkColumns = function() {
+    var matrix = makeArrayOfArrays(boardMatrix);
+    for (var i = 0; i < 3; i++) {
+        var player = matrix[0][i];
+        if (player !== null && matrix[0][i] === matrix[1][i] && matrix[1][i] === matrix[2][i]) {
+            document.getElementById('winner').innerHTML = "Player " + player + ' wins!'
+            setTimeout(() => {
+                resetGame();
+            }, 100);
+        }
+    }
+}
 
+// check diagonals
+var checkDiagonal = function() {
+    if (boardMatrix[0] !== null && boardMatrix[0] === boardMatrix[4] && boardMatrix[4] === boardMatrix[8]) {
+        console.log('win')
+    }
+    if (boardMatrix[2] !== null && boardMatrix[2] === boardMatrix[4] && boardMatrix[4] === boardMatrix[6]) {
+        console.log('win')
+    }
+}
+
+// check win
+var checkWin = function() {
+    checkRows();
+    checkColumns();
+    checkDiagonal();
+}
 
 // add event listeners
 var addListener = function(divID) {
@@ -102,4 +129,3 @@ var resetGame = function() {
     nextPlayer = 'O';
     render();
 }
-
