@@ -1,4 +1,16 @@
 // Model
+var squares = {
+    square_0: 0,
+    square_1: 1,
+    square_2: 2, 
+    square_3: 3,
+    square_4: 4,
+    square_5: 5,
+    square_6: 6,
+    square_7: 7,
+    square_8: 8
+};
+
 var boardMatrix = [null, null, null, null, null, null, null, null, null];
 var player_x = 'X';
 var player_o = 'O';
@@ -17,20 +29,13 @@ var render = function() {
     }
 }
 
-
-// render()
-
-
 var toggleSquare = function(divID) {
-    var square = document.getElementById(divID);
+    boardMatrix[squares[divID]] = currentPlayer;
     var tempPlayer = '';
-    // var square = document.getElementById("square-1");
-    console.log('hi')
-    square.innerHTML = currentPlayer;
     tempPlayer = currentPlayer;
     currentPlayer = nextPlayer;
     nextPlayer = tempPlayer;
-    // render()
+    render()
 }
 
 // add event listeners
@@ -38,15 +43,15 @@ var addListener = function(divID) {
     var square = document.getElementById(divID);
     square.addEventListener('click', () => (toggleSquare(divID)));
 }
-addListener('square-0')
-addListener('square-1')
-addListener('square-2')
-addListener('square-3')
-addListener('square-4')
-addListener('square-5')
-addListener('square-6')
-addListener('square-7')
-addListener('square-8')
+addListener('square_0')
+addListener('square_1')
+addListener('square_2')
+addListener('square_3')
+addListener('square_4')
+addListener('square_5')
+addListener('square_6')
+addListener('square_7')
+addListener('square_8')
 
 
 
