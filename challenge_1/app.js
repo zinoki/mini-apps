@@ -15,6 +15,7 @@ var squares = {
 var boardMatrix = [null, null, null, null, null, null, null, null, null];
 var currentPlayer = 'X';
 var nextPlayer = 'O';
+var playCount = 0;
 
 
 var playerScores = {
@@ -31,8 +32,8 @@ var render = function() {
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = boardMatrix[i];
     }
-
     checkWin();
+    tieChecker();
     
 }
 
@@ -53,6 +54,7 @@ var toggleSquare = function(divID) {
         tempPlayer = currentPlayer;
         currentPlayer = nextPlayer;
         nextPlayer = tempPlayer;
+        playCount++;
         render()
     }
 }
@@ -118,7 +120,15 @@ var winHandler = function(player) {
         resetGame();
     }, 100);
     document.getElementById("score").innerHTML = "Player O: " + playerScores['O'] + " Player X: " + playerScores['X'];
+    document.getElementById("winner").innerHTML = "Player " + player + " wins!";
     return playerScores[player]
+}
+
+var tieChecker = function() {
+    if (playCount === 9) {
+        document.getElementById("winner").innerHTML = "It was a tie!";       
+        resetGame();
+    }
 }
 
 // add event listeners
@@ -137,5 +147,6 @@ var resetGame = function() {
     boardMatrix = [null, null, null, null, null, null, null, null, null];
     currentPlayer = 'X';
     nextPlayer = 'O';
+    playCount = 0;
     render();
 }
