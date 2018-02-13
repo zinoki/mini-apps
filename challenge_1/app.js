@@ -116,12 +116,12 @@ var checkWin = function() {
 
 var winHandler = function(player) {
     playerScores[player]++;
-    setTimeout(() => {
-        resetGame();
-    }, 100);
     document.getElementById("score").innerHTML = "Player O: " + playerScores['O'] + " Player X: " + playerScores['X'];
     document.getElementById("winner").innerHTML = "Player " + player + " wins!";
-    return playerScores[player]
+    alert("Player " + player + " wins!");
+    setTimeout(() => {
+        resetGame();
+    }, 300);
 }
 
 var tieChecker = function() {
