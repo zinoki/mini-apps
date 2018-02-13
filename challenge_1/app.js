@@ -26,6 +26,8 @@ var render = function() {
     for (var i = 0; i < squares.length; i++) {
         squares[i].innerHTML = boardMatrix[i];
     }
+
+    checkRows(boardMatrix);
     // if iswin
       // display Player __ wins
 }
@@ -52,25 +54,34 @@ var toggleSquare = function(divID) {
 }
 
 // check for end of game
-var makeArrayOfArrays = function(array) {
+var makeArrayOfArrays = function(boardMatrix) {
     var matrix = [];
-    for (var i = 0; i < 3; i++) {
-        matrix.push([array[0 + i], array[1 + i], array[2 + i]]);
-    }
+    matrix.push([boardMatrix[0], boardMatrix[1], boardMatrix[2]])
+    matrix.push([boardMatrix[3], boardMatrix[4], boardMatrix[5]])
+    matrix.push([boardMatrix[6], boardMatrix[7], boardMatrix[8]])
     return matrix;
 }
 
-// // check row is win
-// var checkRow = function(array) {
+// check row is win
+var checkRow = function(array) {
+    var player = array[0];
+    if (player !== null && (array[0] === array[1]) && (array[1] === array[2])) {
+        console.log(player + ' wins!');
+    }
+}
 
-// }
-// var checkRows = function(boardMatrix) {
-//     var matrix = makeArrayOfArrays(boardMatrix);
-//     for (var i = 0; i < matrix.length; i++) {
+var checkRows = function(boardMatrix) {
+    var matrix = makeArrayOfArrays(boardMatrix);
+    for (var i = 0; i < 3; i++) {
+        checkRow(matrix[i]);
+    }
+}
 
+// var checkColumn = function(boardMatrix) {
+//     for (var i = 0; i < 3; i++) {
+//         if (boar)
 //     }
 // }
-
 
 
 // add event listeners
