@@ -2,14 +2,14 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="styles.css" rel="stylesheet">
     </head>
     <body>
         <form id="jsonForm">
-            Insert your JSON data here: <br>
-            <input type="text" id="jsonData"> <br>
+            <h3 id="heading">Insert your JSON data here: </h3><br>
+            <textarea id="jsonData"> </textarea><br>
             <input type="submit">
         </form>
-        <h2>Your CSV will be below!</h2>
         <div id='csv'></div>
     </body>
     <script src="app.js"></script>
