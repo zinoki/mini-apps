@@ -11,7 +11,9 @@ var boardMaker = function(rows, cols) {
 
 var boardMatrix = boardMaker(6, 7);
 
-
+// define players
+player_1 = 'red';
+player_2 = 'black';
 
 // function that returns row index closest to bottom depending on column index chosen
 var nextEmptySquare = function(boardMatrix, colIndex) {
@@ -24,14 +26,20 @@ var nextEmptySquare = function(boardMatrix, colIndex) {
     return false;
 }
 
+
+
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            board: boardMatrix
+            board: boardMatrix,
+            player_1_turn: true,
+            player_2_turn: false
         };
-        this.togglePiece = function(column, player) {
-            // this.state.board[ = player
+        this.togglePiece = function(colIndex) {
+            var player = player_1_turn ? player_1 : player_2;
+            var rowIndex = nextEmptySquare(boardMatrix, colIndex);
+            boardMatrix[rowIndex][colIndex] = player;
         };
 
     }
