@@ -1,13 +1,4 @@
-// var boardMatrix = new Array(6).fill(new Array(7).fill(0));
-// var boardMatrix = [
-//     [0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0],
-// ]
-
+// make an empty board
 
 var boardMaker = function (rows, cols) {
     var boardMatrix = [];
@@ -19,14 +10,16 @@ var boardMaker = function (rows, cols) {
 };
 
 var boardMatrix = boardMaker(6, 7);
+
+// function that returns row index closest to bottom depending on column index chosen
 var nextEmptySquare = function (boardMatrix, colIndex) {
-    for (var rowIndex = boardMatrix.length - 1; i >= 0; i--) {
+    for (var rowIndex = boardMatrix.length - 1; rowIndex >= 0; rowIndex--) {
         var row = boardMatrix[rowIndex];
-        if (row[colIndex]) {
+        if (!row[colIndex]) {
             return rowIndex;
         }
-        // check column index at each row until you find an empty one
     }
+    return false;
 };
 
 class App extends React.Component {
