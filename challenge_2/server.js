@@ -11,8 +11,9 @@ app.use((req, res, next) => {
 })
 
 app.post('/', function(req, res) {
-    var csv = jsonToCSV(req.body.input);
-    console.log('body: ' + JSON.stringify(req.body.input));
+    var csv = jsonToCSV(req.body);
+    console.log('csv', csv);
+    // console.log('body: ' + JSON.stringify(req.body.input));
 
     res.send(csv);
 })
@@ -28,7 +29,7 @@ var jsonToCSV = function(obj) {
     // set up inner recursion
     var finalString = '';
     for (var key in obj) {
-        if (!Array.isArray(key[obj])) {
+        if (!Array.isArray(key[obj]) && key !== 'children') {
             finalString += key + ',';
         }
     }
