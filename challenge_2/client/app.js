@@ -8,7 +8,6 @@ var handlePost = function(data) {
         contentType: 'application/json',
         url: server,
         success: function(response) {
-            console.log(response);
             $('#csv').html("" + response);
         }
     });
@@ -16,7 +15,6 @@ var handlePost = function(data) {
 
 $("#jsonForm").submit(function() {
     var data = $("#jsonData").val();
-    console.log(typeof data);
     handlePost(data);
     return false;
 })
