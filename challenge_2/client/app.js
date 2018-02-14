@@ -8,7 +8,6 @@ var handlePost = function(data) {
         contentType: 'application/json',
         url: server,
         success: function(response) {
-            console.log('success');
             console.log(response);
             $('#csv').html("" + response.input);
         }
