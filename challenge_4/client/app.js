@@ -13,7 +13,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-              <div><Board board={this.state.board}/></div>
+              {/* <div><Board board={this.state.board}/></div> */}
               <div><PinSelection pinsRemaining={this.state.pinsRemaining}/></div>
               <div><ScoreBoard roundScores={this.state.roundScores}/></div>
               <div><CurrentScore roundScores={this.state.roundScores}/></div>
@@ -22,21 +22,21 @@ class App extends React.Component {
     }
 }
 
-var Board = function(props) {
-    return (
-        <div>{props.board}</div>
-    );
-}
+// var Board = function(board) {
+//     return (
+//         <div>{board}</div>
+//     );
+// }
 
-var CurrentScore = function(props) {
+var CurrentScore = function({roundScores}) {
     return (
         <div>
             <h2>Current Score</h2>
-            <div>{_.reduce(_.flatten([props.roundScores]), (a, b) => a + b)}</div>
+            <div>{_.reduce(_.flatten([roundScores]), (a, b) => a + b)}</div>
         </div>
     )
 }
-var ScoreBoard = function(props) {
+var ScoreBoard = function({roundScores}) {
     return (
         <table id="scoreboard">
             <th>Rounds</th>
@@ -52,7 +52,7 @@ var ScoreBoard = function(props) {
                 <td># 9</td>
                 <td># 10</td>
             </tr>
-            <tr><ScoreBoardRow cell={props.roundScores} /></tr>
+            <tr><ScoreBoardRow cell={roundScores} /></tr>
         </table>
     )
 }
@@ -78,10 +78,16 @@ var PinSelection = function({pinsRemaining}) {
             selectionArray[3].push(i);
         }
     }
-    // console.log(selectionArray);
+    var rowBuild = selectionArray.map(row => 
+    <PinSelectionRow cell={row}/>
+        );
+        
     return (
         <table id="selection">
-        <div><PinSelectionRow row={selectionArray}/></div>
+        {selectionArray.map(row => 
+          <tr><PinSelectionRow rows={row}/></tr>
+        )}
+        
         </table>
     )
     // display pins available to hit
@@ -89,11 +95,21 @@ var PinSelection = function({pinsRemaining}) {
     // if after selection pinsRemaining = 0, 
 }
 
-var PinSelectionRow = function({row}) {
-    console.log(row);
+var PinSelectionRow = function({rows}) {
+    console.log(rows);
+    var keypad = rows.map(row => 
+    <td>{row}</td>);
     return (
-        <div>{row}</div>
+        keypad
     );
+}
+
+var CellSelect = function({cell}) {
+    var cells = {cell}
+
+    return (
+        cells
+    )
 }
 
 /*

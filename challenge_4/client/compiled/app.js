@@ -17,11 +17,6 @@ class App extends React.Component {
             React.createElement(
                 "div",
                 null,
-                React.createElement(Board, { board: this.state.board })
-            ),
-            React.createElement(
-                "div",
-                null,
                 React.createElement(PinSelection, { pinsRemaining: this.state.pinsRemaining })
             ),
             React.createElement(
@@ -38,15 +33,13 @@ class App extends React.Component {
     }
 }
 
-var Board = function (props) {
-    return React.createElement(
-        "div",
-        null,
-        props.board
-    );
-};
+// var Board = function(board) {
+//     return (
+//         <div>{board}</div>
+//     );
+// }
 
-var CurrentScore = function (props) {
+var CurrentScore = function ({ roundScores }) {
     return React.createElement(
         "div",
         null,
@@ -58,11 +51,11 @@ var CurrentScore = function (props) {
         React.createElement(
             "div",
             null,
-            _.reduce(_.flatten([props.roundScores]), (a, b) => a + b)
+            _.reduce(_.flatten([roundScores]), (a, b) => a + b)
         )
     );
 };
-var ScoreBoard = function (props) {
+var ScoreBoard = function ({ roundScores }) {
     return React.createElement(
         "table",
         { id: "scoreboard" },
@@ -128,7 +121,7 @@ var ScoreBoard = function (props) {
         React.createElement(
             "tr",
             null,
-            React.createElement(ScoreBoardRow, { cell: props.roundScores })
+            React.createElement(ScoreBoardRow, { cell: roundScores })
         )
     );
 };
@@ -155,28 +148,36 @@ var PinSelection = function ({ pinsRemaining }) {
             selectionArray[3].push(i);
         }
     }
-    // console.log(selectionArray);
+    var rowBuild = selectionArray.map(row => React.createElement(PinSelectionRow, { cell: row }));
+
     return React.createElement(
         "table",
         { id: "selection" },
-        React.createElement(
-            "div",
+        selectionArray.map(row => React.createElement(
+            "tr",
             null,
-            React.createElement(PinSelectionRow, { row: selectionArray })
-        )
+            React.createElement(PinSelectionRow, { rows: row })
+        ))
     );
     // display pins available to hit
     // if ballNumber === 1: there are up to 10 pins
     // if after selection pinsRemaining = 0, 
 };
 
-var PinSelectionRow = function ({ row }) {
-    console.log(row);
-    return React.createElement(
-        "div",
+var PinSelectionRow = function ({ rows }) {
+    console.log(rows);
+    var keypad = rows.map(row => React.createElement(
+        "td",
         null,
         row
-    );
+    ));
+    return keypad;
+};
+
+var CellSelect = function ({ cell }) {
+    var cells = { cell };
+
+    return cells;
 };
 
 /*
