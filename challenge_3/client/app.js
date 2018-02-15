@@ -39,18 +39,19 @@ class App extends React.Component {
             player_1_turn: true,
             player_2_turn: false
         };
-        this.togglePiece = function(colIndex) {
-            var player = player_1_turn ? player_1 : player_2;
-            var rowIndex = nextEmptySquare(boardMatrix, colIndex);
-            boardMatrix[rowIndex][colIndex] = player;
-        };
-
+        
+    }
+    togglePiece(colIndex) {
+        var player = this.state.player_1_turn ? this.state.player_1 : this.state.player_2;
+        var rowIndex = nextEmptySquare(this.state.board, colIndex);
+        this.state.board[rowIndex][colIndex]  = player;
+        this.setState({board: this.state.board});
     }
     render() {
         return (
         <div>
           <h1>Connect 404</h1>
-          <Board matrix={this.state.board}/>
+          <Board matrix={this.state.board} togglePiece={this.togglePiece.bind(this)}/>
         </div>
         );
     }
@@ -60,7 +61,7 @@ class App extends React.Component {
 
 var Board = function(props) {
     return (<table id="board">
-    {props.matrix.map((row, rowIndex) => <BoardRow row={row} rowIndex={rowIndex}/>
+    {props.matrix.map((row, rowIndex) => <BoardRow row={row} rowIndex={rowIndex} togglePiece={props.togglePiece.bind(this)}/>
   )}
       </table>
     );
@@ -69,21 +70,13 @@ var Board = function(props) {
 
 
 
-
-
 var BoardRow = function(props) {
+
     return (<tr>
-        {props.row.map((square, colIndex) => <td>{square}{props.rowIndex}{colIndex}</td>)}
+        {props.row.map((square, colIndex) => <td onClick={()=>props.togglePiece(colIndex)}>{square}</td>)}
         </tr>
     )
 }
-
-
-
-
-
-
-
 
 
 
