@@ -26,8 +26,7 @@ var nextEmptySquare = function (boardMatrix, colIndex) {
     return false;
 };
 
-// check for row win
-var isRowWin = function (rowIndex, player) {
+var isRowWin = function (rowIndex, colIndex, player) {
     var inARow = 0;
     var row = boardMatrix[rowIndex];
     for (var i = 0; i < row.length; i++) {
@@ -35,6 +34,7 @@ var isRowWin = function (rowIndex, player) {
             inARow++;
             if (inARow === 4) {
                 console.log(player + ' wins!');
+                break;
             }
         } else {
             inARow = 0;
@@ -43,12 +43,13 @@ var isRowWin = function (rowIndex, player) {
 };
 var isColumnWin = function (rowIndex, colIndex, player) {
     var inColumn = 0;
-    for (var rowIndex = 0; rowIndex < boardMatrix.length; rowIndex++) {
-        var row = boardMatrix[rowIndex];
+    for (var i = rowIndex; i < boardMatrix.length; i++) {
+        var row = boardMatrix[i];
         if (row[colIndex] === player) {
             inColumn++;
             if (inColumn === 4) {
                 console.log(player + ' wins!');
+                break;
             }
         } else {
             inColumn = 0;
@@ -56,13 +57,47 @@ var isColumnWin = function (rowIndex, colIndex, player) {
     }
     return false;
 };
-// check for column win
 // check for diagonal win
+
+var isDiagonalWin = function (rowIndex, colIndex, player) {
+    var leftD = 0;
+    var rightD = 0;
+    var colLeft = colIndex;
+    var colRight = colIndex;
+    for (var i = rowIndex; i < boardMatrix.length; i++) {
+        var row = boardMatrix[i];
+        if (row[colRight] === player) {
+            rightD++;
+            if (rightD === 4) {
+                console.log(player + ' wins!');
+                break;
+            }
+        } else {
+            rightD = 0;
+        }
+        if (colRight + 1 <= row.length) {
+            ++colRight;
+        }
+        if (row[colLeft] === player) {
+            leftD++;
+            if (leftD === 4) {
+                console.log(player + ' wins!');
+                break;
+            }
+        } else {
+            leftD = 0;
+        }
+        if (colLeft - 1 >= 0) {
+            --colLeft;
+        }
+    }
+};
 
 // check for win
 var isWin = function (rowIndex, colIndex, player) {
-    isRowWin(rowIndex, player);
+    isRowWin(rowIndex, colIndex, player);
     isColumnWin(rowIndex, colIndex, player);
+    isDiagonalWin(rowIndex, colIndex, player);
 };
 
 class App extends React.Component {
