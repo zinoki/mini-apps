@@ -6,31 +6,31 @@ class App extends React.Component {
             ballNumber: 1,
             inStrikeMode: false,
             inSpareMode: false,
-            roundScores: [[10, 10, 10], [3, 6], [4, 4], [5, 3], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
+            roundScores: [[10, 10, 10], [3, 6], [4, 4], [5, 4], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
             pinsRemaining: 10
         };
     }
     render() {
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(Board, { board: this.state.board })
             ),
             React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(PinSelection, { pinsRemaining: this.state.pinsRemaining })
             ),
             React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(ScoreBoard, { roundScores: this.state.roundScores })
             ),
             React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(CurrentScore, { roundScores: this.state.roundScores })
             )
@@ -40,7 +40,7 @@ class App extends React.Component {
 
 var Board = function (props) {
     return React.createElement(
-        'div',
+        "div",
         null,
         props.board
     );
@@ -48,15 +48,15 @@ var Board = function (props) {
 
 var CurrentScore = function (props) {
     return React.createElement(
-        'div',
+        "div",
         null,
         React.createElement(
-            'h2',
+            "h2",
             null,
-            'Current Score'
+            "Current Score"
         ),
         React.createElement(
-            'div',
+            "div",
             null,
             _.reduce(_.flatten([props.roundScores]), (a, b) => a + b)
         )
@@ -64,79 +64,78 @@ var CurrentScore = function (props) {
 };
 var ScoreBoard = function (props) {
     return React.createElement(
-        'table',
-        null,
+        "table",
+        { id: "scoreboard" },
         React.createElement(
-            'th',
+            "th",
             null,
-            'Rounds'
+            "Rounds"
         ),
         React.createElement(
-            'tr',
+            "tr",
             null,
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 1'
+                "# 1"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 2'
+                "# 2"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 3'
+                "# 3"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 4'
+                "# 4"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 5'
+                "# 5"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 6'
+                "# 6"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 7'
+                "# 7"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 8'
+                "# 8"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 9'
+                "# 9"
             ),
             React.createElement(
-                'td',
+                "td",
                 null,
-                '# 10'
+                "# 10"
             )
         ),
         React.createElement(
-            'tr',
+            "tr",
             null,
             React.createElement(ScoreBoardRow, { cell: props.roundScores })
         )
     );
 };
 
-var ScoreBoardRow = function (props) {
-    var row = props.cell;
-    var scores = row.map(score => React.createElement(
-        'td',
+var ScoreBoardRow = function ({ cell }) {
+    var scores = cell.map(score => React.createElement(
+        "td",
         null,
         score + ' '
     ));
@@ -144,16 +143,40 @@ var ScoreBoardRow = function (props) {
 };
 
 var PinSelection = function ({ pinsRemaining }) {
-    var selectionArray = new Array(pinsRemaining).fill(1);
-    console.log(selectionArray);
+    var selectionArray = [[], [], [], []];
+    for (var i = 0; i <= pinsRemaining; i++) {
+        if (i <= 2) {
+            selectionArray[0].push(i);
+        } else if (i <= 5) {
+            selectionArray[1].push(i);
+        } else if (i <= 8) {
+            selectionArray[2].push(i);
+        } else if (i <= 10) {
+            selectionArray[3].push(i);
+        }
+    }
+    // console.log(selectionArray);
     return React.createElement(
-        'div',
-        null,
-        selectionArray
+        "table",
+        { id: "selection" },
+        React.createElement(
+            "div",
+            null,
+            React.createElement(PinSelectionRow, { row: selectionArray })
+        )
     );
     // display pins available to hit
     // if ballNumber === 1: there are up to 10 pins
     // if after selection pinsRemaining = 0, 
+};
+
+var PinSelectionRow = function ({ row }) {
+    console.log(row);
+    return React.createElement(
+        "div",
+        null,
+        row
+    );
 };
 
 /*

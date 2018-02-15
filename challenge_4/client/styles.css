@@ -1,6 +1,12 @@
-table {
+#scoreboard {
     width: 800px;
     height: 100px;
+    border: solid black;
+}
+
+#selection {
+    height: 300px;
+    width: 800 px;
     border: solid black;
 }
 
@@ -8,3 +14,4 @@ td {
     width: 10%;
     border: solid grey;
 }
+
