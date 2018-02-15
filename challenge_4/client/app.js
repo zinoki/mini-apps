@@ -2,31 +2,36 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentFrame: 0,
+            currentFrame: 1,
             ballNumber: 1,
             inStrikeMode: false,
             inSpareMode: false,
-            roundScores: [[10, 10, 10], [3, 6], [4, 4], [5, 4], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
+            roundScores: [[10], [3, 6], [4, 4], [5, 4], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
             pinsRemaining: 10
         };
     }
     render() {
         return (
             <div>
-              {/* <div><Board board={this.state.board}/></div> */}
-              <div><PinSelection pinsRemaining={this.state.pinsRemaining}/></div>
+              <div><PinSelection pinsRemaining={this.state.pinsRemaining} bowl={this.bowl.bind(this)}/></div>
               <div><ScoreBoard roundScores={this.state.roundScores}/></div>
               <div><CurrentScore roundScores={this.state.roundScores}/></div>
             </div>
         );
     }
+    bowl(numPins) {
+        var frame = this.state.currentFrame;
+        var updatedScores = this.state.roundScores.slice();
+        updatedScores[frame - 1].push(numPins);
+
+        
+        this.setState({roundScores: updatedScores});
+
+        console.log(this.state.inStrikeMode);
+        // this.setState({pinsRemaining: this.pinsRemaining - numPins})
+    }
 }
 
-// var Board = function(board) {
-//     return (
-//         <div>{board}</div>
-//     );
-// }
 
 var CurrentScore = function({roundScores}) {
     return (
@@ -65,7 +70,8 @@ var ScoreBoardRow = function({cell}) {
     )
 }
 
-var PinSelection = function({pinsRemaining}) {
+var PinSelection = function({pinsRemaining, bowl}) {
+    // bowl(3);
     var selectionArray = [[], [], [], []];
     for (var i = 0; i <= pinsRemaining; i++) {
         if (i <= 2) {
@@ -78,6 +84,7 @@ var PinSelection = function({pinsRemaining}) {
             selectionArray[3].push(i);
         }
     }
+
     var rowBuild = selectionArray.map(row => 
     <PinSelectionRow cell={row}/>
         );
@@ -111,26 +118,6 @@ var CellSelect = function({cell}) {
         cells
     )
 }
-
-/*
-    1
-   2 3 
-  4 5 6
- 7 8 9 10
-10 pins
-
-10 frames (turns)
-each frame represents one turn for a bowler
-in a frame a bowler is allowed to roll the ball up to two times
-two chances to knock down all ten pins
-if you fail to knock down all ten pins in one frame, this is an openframe
-and scores the exact number of pins you knock down
-if you knock down all ten pins with two balls, this is a spare
-this scores 10 plus number of pins knocked down with next ball
-if you knock down all ten pins with one ball this is a strike
-this scores 10 plus number of pins knocked down with next two balls (could be up to 30 if two more strikes)
-perfect game is 300 points
-*/
 
 
 // make sure to put components in correct order (ReactDOM.render should always be bottom)
