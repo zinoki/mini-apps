@@ -32,6 +32,7 @@ var Board = function(props) {
 }
 
 var PinSelection = function(props) {
+    var 
     return (
         <div>{props.pinsRemaining}</div>
     )
