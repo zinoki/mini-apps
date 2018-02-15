@@ -18,10 +18,12 @@ table {
 }
 .red {
     background-color: red;
+    color: red;
 }
 
 .black {
     background-color: black;
+    color: black;
 }
 
 .cell {

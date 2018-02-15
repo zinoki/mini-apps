@@ -122,7 +122,6 @@ class App extends React.Component {
         this.setState({ player_1_turn: !this.state.player_1_turn });
         this.setState({ player_2_turn: !this.state.player_2_turn });
         if (isWin(rowIndex, colIndex, player)) {
-            console.log('look here!');
             alert(player + ' wins!');
         }
     }
