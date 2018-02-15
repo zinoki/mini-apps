@@ -42,6 +42,8 @@ class App extends React.Component {
         var rowIndex = nextEmptySquare(this.state.board, colIndex);
         this.state.board[rowIndex][colIndex] = player;
         this.setState({ board: this.state.board });
+        this.setState({ player_1_turn: !this.state.player_1_turn });
+        this.setState({ player_2_turn: !this.state.player_2_turn });
     }
     render() {
         return React.createElement(
