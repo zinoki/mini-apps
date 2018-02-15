@@ -28,7 +28,7 @@ var nextEmptySquare = function (boardMatrix, colIndex) {
 
 // check for row win
 var isRowWin = function (rowIndex, player) {
-    var inARow = 1;
+    var inARow = 0;
     var row = boardMatrix[rowIndex];
     for (var i = 0; i < row.length; i++) {
         if (row[i] === player) {
@@ -41,9 +41,9 @@ var isRowWin = function (rowIndex, player) {
         }
     }
 };
-var isColumnWin = function (colIndex, player) {
+var isColumnWin = function (rowIndex, colIndex, player) {
     var inColumn = 0;
-    for (var rowIndex = boardMatrix.length - 1; rowIndex >= 0; rowIndex--) {
+    for (var rowIndex = 0; rowIndex < boardMatrix.length; rowIndex++) {
         var row = boardMatrix[rowIndex];
         if (row[colIndex] === player) {
             inColumn++;
@@ -62,7 +62,7 @@ var isColumnWin = function (colIndex, player) {
 // check for win
 var isWin = function (rowIndex, colIndex, player) {
     isRowWin(rowIndex, player);
-    isColumnWin(colIndex, player);
+    isColumnWin(rowIndex, colIndex, player);
 };
 
 class App extends React.Component {
