@@ -15,6 +15,7 @@ var boardMatrix = boardMaker(6, 7);
 player_1 = 'red';
 player_2 = 'black';
 
+
 // function that returns row index closest to bottom depending on column index chosen
 var nextEmptySquare = function(boardMatrix, colIndex) {
     for (var rowIndex = boardMatrix.length - 1; rowIndex >= 0; rowIndex--) {
@@ -33,6 +34,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             board: boardMatrix,
+            player_1: 'red',
+            player_2: 'black',
             player_1_turn: true,
             player_2_turn: false
         };
@@ -47,7 +50,7 @@ class App extends React.Component {
         return (
         <div>
           <h1>Connect 404</h1>
-          <Board />
+          <Board matrix={this.state.board}/>
         </div>
         );
     }
@@ -55,10 +58,22 @@ class App extends React.Component {
 }
 
 
-var Board = () => function() {
-  return 
-  (<div>hi</div>);
+var Board = function(props) {
+  return (
+    <div>hi{props.matrix}</div>
+  );
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 ReactDOM.render(<App />, document.getElementById('app'));

@@ -31,6 +31,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             board: boardMatrix,
+            player_1: 'red',
+            player_2: 'black',
             player_1_turn: true,
             player_2_turn: false
         };
@@ -49,18 +51,18 @@ class App extends React.Component {
                 null,
                 'Connect 404'
             ),
-            React.createElement(Board, null)
+            React.createElement(Board, { matrix: this.state.board })
         );
     }
 
 }
 
-var Board = () => function () {
-    return;
-    React.createElement(
+var Board = function (props) {
+    return React.createElement(
         'div',
         null,
-        'hi'
+        'hi',
+        props.matrix
     );
 };
 
