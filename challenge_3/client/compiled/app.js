@@ -156,7 +156,7 @@ var BoardRow = function (props) {
         null,
         props.row.map((square, colIndex) => React.createElement(
             'td',
-            { onClick: () => props.togglePiece(colIndex) },
+            { className: square || "cell", onClick: () => props.togglePiece(colIndex) },
             square
         ))
     );

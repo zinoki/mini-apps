@@ -160,7 +160,7 @@ var Board = function(props) {
 var BoardRow = function(props) {
 
     return (<tr>
-        {props.row.map((square, colIndex) => <td onClick={()=>props.togglePiece(colIndex)}>{square}</td>)}
+        {props.row.map((square, colIndex) => <td className={square || "cell"} onClick={()=>props.togglePiece(colIndex)}>{square}</td>)}
         </tr>
     )
 }

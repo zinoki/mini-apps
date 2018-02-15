@@ -14,5 +14,16 @@ td {
 table {
     border: solid black;
     margin: auto;
+    background-color: white;
+}
+.red {
+    background-color: red;
+}
+
+.black {
     background-color: black;
+}
+
+.cell {
+    color: green;
 }
