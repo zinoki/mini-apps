@@ -60,9 +60,12 @@ class App extends React.Component {
 var Board = function (props) {
     return React.createElement(
         'div',
-        null,
-        'hi',
-        props.matrix
+        { id: 'board' },
+        props.matrix.map(row => React.createElement(
+            'div',
+            null,
+            row
+        ))
     );
 };
 

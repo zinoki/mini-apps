@@ -59,8 +59,10 @@ class App extends React.Component {
 
 
 var Board = function(props) {
-  return (
-    <div>hi{props.matrix}</div>
+  return (<div id="board">
+  {props.matrix.map((row) => <div>{row}</div>
+)}
+    </div>
   );
 }
 
