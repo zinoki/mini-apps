@@ -119,7 +119,7 @@ class App extends React.Component {
             player_1_turn: true,
             player_2_turn: false
         };
-        
+
     }
     togglePiece(colIndex) {
         var player = this.state.player_1_turn ? this.state.player_1 : this.state.player_2;
@@ -128,8 +128,12 @@ class App extends React.Component {
         this.setState({board: this.state.board});
         this.setState({player_1_turn: !this.state.player_1_turn});
         this.setState({player_2_turn: !this.state.player_2_turn});
+
         if(isWin(rowIndex, colIndex, player)) {
-            alert(player + ' wins!');
+          setTimeout(() => {
+          alert(player + ' wins!')}, 500)
+
+
         }
 
     }
