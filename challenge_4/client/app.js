@@ -3,16 +3,11 @@ class App extends React.Component {
         super(props);
         this.state = {
             currentFrame: 0,
-            roundScores: [[2], [], [], [], [], [], [], [], [], []],
-            strikeBallCounter: 0,
-            pinsRemaining: 10,
             ballNumber: 1,
-            board: [
-                [null, null, 1, null, null, null, null],
-                [null, null, 1, null, 1, null, null],
-                [null, 1, null, 1, null, 1, null],
-                [1, null, 1, null, 1, null, 1]
-            ]
+            inStrikeMode: false,
+            inSpareMode: false,
+            roundScores: [[10, 10, 10], [3, 6], [4, 4], [5, 3], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
+            pinsRemaining: 10
         };
     }
     render() {
@@ -21,6 +16,7 @@ class App extends React.Component {
               <div><Board board={this.state.board}/></div>
               <div><PinSelection pinsRemaining={this.state.pinsRemaining}/></div>
               <div><ScoreBoard roundScores={this.state.roundScores}/></div>
+              <div><CurrentScore roundScores={this.state.roundScores}/></div>
             </div>
         );
     }
@@ -29,19 +25,44 @@ class App extends React.Component {
 var Board = function(props) {
     return (
         <div>{props.board}</div>
-    )
+    );
 }
 
-var ScoreBoard = function(props) {
+var CurrentScore = function(props) {
     return (
         <div>
             <h2>Current Score</h2>
             <div>{_.reduce(_.flatten([props.roundScores]), (a, b) => a + b)}</div>
         </div>
     )
-    // display pins available to hit
-    // if ballNumber === 1: there are up to 10 pins
-    // if after selection pinsRemaining = 0, 
+}
+var ScoreBoard = function(props) {
+    return (
+        <table>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+            </tr>
+            <tr><ScoreBoardRow cell={props.roundScores} /></tr>
+        </table>
+    )
+}
+
+var ScoreBoardRow = function(props) {
+    var row = props.cell;
+    var scores = row.map((score) => 
+      <td>{score + '|'}</td>)
+    return (
+        scores
+    )
 }
 
 var PinSelection = function(props) {
@@ -52,6 +73,7 @@ var PinSelection = function(props) {
     // if ballNumber === 1: there are up to 10 pins
     // if after selection pinsRemaining = 0, 
 }
+
 
 
 
