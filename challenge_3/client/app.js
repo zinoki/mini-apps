@@ -59,15 +59,30 @@ class App extends React.Component {
 
 
 var Board = function(props) {
-  return (<div id="board">
-  {props.matrix.map((row) => <div>{row}</div>
-)}
-    </div>
-  );
+    return (<table id="board">
+    {props.matrix.map((row) => <BoardRow row={row}/>
+  )}
+      </table>
+    );
+  }
+
+
+
+// var Board = function(props) {
+//   return (<table id="board">
+//   {props.matrix.map((row) => <tr>{row}</tr>
+// )}
+//     </table>
+//   );
+// }
+
+
+var BoardRow = function(props) {
+    return (<tr>
+        {props.row.map((square) => <td>{square}</td>)}
+        </tr>
+    )
 }
-
-
-
 
 
 

@@ -59,12 +59,29 @@ class App extends React.Component {
 
 var Board = function (props) {
     return React.createElement(
-        'div',
+        'table',
         { id: 'board' },
-        props.matrix.map(row => React.createElement(
-            'div',
+        props.matrix.map(row => React.createElement(BoardRow, { row: row }))
+    );
+};
+
+// var Board = function(props) {
+//   return (<table id="board">
+//   {props.matrix.map((row) => <tr>{row}</tr>
+// )}
+//     </table>
+//   );
+// }
+
+
+var BoardRow = function (props) {
+    return React.createElement(
+        'tr',
+        null,
+        props.row.map(square => React.createElement(
+            'td',
             null,
-            row
+            square
         ))
     );
 };
