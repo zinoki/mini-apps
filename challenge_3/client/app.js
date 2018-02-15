@@ -27,6 +27,45 @@ var nextEmptySquare = function(boardMatrix, colIndex) {
     return false;
 }
 
+// check for row win
+var isRowWin = function(rowIndex, player) {
+    var inARow = 1;
+    var row = boardMatrix[rowIndex];
+    for (var i = 0; i < row.length; i++) {
+            if (row[i] === player) {
+                inARow++;
+                if (inARow === 4) {
+                    console.log(player + ' wins!');
+                }
+            } else {
+                inARow = 0;
+            }
+
+    }
+}
+var isColumnWin = function(colIndex, player) {
+    var inColumn = 0;
+    for (var rowIndex = boardMatrix.length - 1; rowIndex >= 0; rowIndex--) {
+        var row = boardMatrix[rowIndex];
+        if (row[colIndex] === player) {
+            inColumn++;
+            if (inColumn === 4) {
+                console.log(player + ' wins!');
+            }
+        } else {
+            inColumn = 0;
+        }
+    }
+    return false;
+}
+// check for column win
+// check for diagonal win
+
+// check for win
+var isWin = function(rowIndex, colIndex, player) {
+    isRowWin(rowIndex, player);
+    isColumnWin(colIndex, player);
+}
 
 
 class App extends React.Component {
@@ -48,6 +87,8 @@ class App extends React.Component {
         this.setState({board: this.state.board});
         this.setState({player_1_turn: !this.state.player_1_turn});
         this.setState({player_2_turn: !this.state.player_2_turn});
+        isWin(rowIndex, colIndex, player);
+
     }
     render() {
         return (
