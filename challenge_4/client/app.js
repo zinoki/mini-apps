@@ -17,7 +17,10 @@ class App extends React.Component {
     }
     render() {
         return (
-            <Board board={this.state.board}/>
+            <div>
+              <div><Board board={this.state.board}/></div>
+              <div><PinSelection pinsRemaining={this.state.pinsRemaining}/></div>
+            </div>
         );
     }
 }
@@ -29,7 +32,9 @@ var Board = function(props) {
 }
 
 var PinSelection = function(props) {
-
+    return (
+        <div>{props.pinsRemaining}</div>
+    )
     // display pins available to hit
     // if ballNumber === 1: there are up to 10 pins
     // if after selection pinsRemaining = 0, 

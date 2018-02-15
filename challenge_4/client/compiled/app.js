@@ -11,7 +11,20 @@ class App extends React.Component {
         };
     }
     render() {
-        return React.createElement(Board, { board: this.state.board });
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'div',
+                null,
+                React.createElement(Board, { board: this.state.board })
+            ),
+            React.createElement(
+                'div',
+                null,
+                React.createElement(PinSelection, { pinsRemaining: this.state.pinsRemaining })
+            )
+        );
     }
 }
 
@@ -23,12 +36,16 @@ var Board = function (props) {
     );
 };
 
-var PinSelection = function (props) {}
-
-// display pins available to hit
-// if ballNumber === 1: there are up to 10 pins
-// if after selection pinsRemaining = 0, 
-
+var PinSelection = function (props) {
+    return React.createElement(
+        'div',
+        null,
+        props.pinsRemaining
+    );
+    // display pins available to hit
+    // if ballNumber === 1: there are up to 10 pins
+    // if after selection pinsRemaining = 0, 
+};
 
 /*
     1
@@ -52,4 +69,4 @@ perfect game is 300 points
 
 // make sure to put components in correct order (ReactDOM.render should always be bottom)
 
-;ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
