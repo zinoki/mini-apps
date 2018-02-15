@@ -1,6 +1,6 @@
 #board {
-    height: 620px;
-    width: 620px;
+    height: 400px;
+    width: 400px;
     position: fixed;
 }
 td {
