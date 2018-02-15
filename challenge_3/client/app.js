@@ -3,7 +3,7 @@
 var boardMaker = function(rows, cols) {
     var boardMatrix = [];
     for (var i = 0; i < rows; i++) {
-        var row = new Array(cols).fill(0);
+        var row = new Array(cols).fill(null);
         boardMatrix.push(row);
     }
     return boardMatrix;
