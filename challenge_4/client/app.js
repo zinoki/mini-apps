@@ -1,22 +1,38 @@
-
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            frame: 0
+            frame: 0,
+            playerScore: 0,
+            strikeBallCounter: 0,
+            pinsRemaining: 10,
+            ballNumber: 1,
+            board: [
+                [null, null, 1, null, null, null, null],
+                [null, null, 1, null, 1, null, null],
+                [null, 1, null, 1, null, 1, null],
+                [1, null, 1, null, 1, null, 1]
+            ]
         };
     }
     render() {
         return (
-            <div>
-            <h1>hiiiiiii</h1>
-            </div>
+            <Board board={this.state.board}/>
         );
     }
 }
 
+var Board = function(props) {
+    return (
+        <div>{props.board}</div>
+    )
+}
+
 var PinSelection = function(props) {
 
+    // display pins available to hit
+    // if ballNumber === 1: there are up to 10 pins
+    // if after selection pinsRemaining = 0, 
 }
 
 
