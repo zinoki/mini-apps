@@ -39,17 +39,18 @@ var CurrentScore = function(props) {
 var ScoreBoard = function(props) {
     return (
         <table>
+            <th>Rounds</th>
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
+                <td># 1</td>
+                <td># 2</td>
+                <td># 3</td>
+                <td># 4</td>
+                <td># 5</td>
+                <td># 6</td>
+                <td># 7</td>
+                <td># 8</td>
+                <td># 9</td>
+                <td># 10</td>
             </tr>
             <tr><ScoreBoardRow cell={props.roundScores} /></tr>
         </table>
@@ -59,21 +60,22 @@ var ScoreBoard = function(props) {
 var ScoreBoardRow = function(props) {
     var row = props.cell;
     var scores = row.map((score) => 
-      <td>{score + '|'}</td>)
+      <td>{score + ' '}</td>)
     return (
         scores
     )
 }
 
-var PinSelection = function(props) {
+var PinSelection = function({pinsRemaining}) {
+    var selectionArray = new Array(pinsRemaining).fill(1);
+    console.log(selectionArray);
     return (
-        <div>{props.pinsRemaining}</div>
+        <div>{selectionArray}</div>
     )
     // display pins available to hit
     // if ballNumber === 1: there are up to 10 pins
     // if after selection pinsRemaining = 0, 
 }
-
 
 
 

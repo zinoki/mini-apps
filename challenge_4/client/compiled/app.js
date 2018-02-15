@@ -67,57 +67,62 @@ var ScoreBoard = function (props) {
         'table',
         null,
         React.createElement(
+            'th',
+            null,
+            'Rounds'
+        ),
+        React.createElement(
             'tr',
             null,
             React.createElement(
                 'td',
                 null,
-                '1'
+                '# 1'
             ),
             React.createElement(
                 'td',
                 null,
-                '2'
+                '# 2'
             ),
             React.createElement(
                 'td',
                 null,
-                '3'
+                '# 3'
             ),
             React.createElement(
                 'td',
                 null,
-                '4'
+                '# 4'
             ),
             React.createElement(
                 'td',
                 null,
-                '5'
+                '# 5'
             ),
             React.createElement(
                 'td',
                 null,
-                '6'
+                '# 6'
             ),
             React.createElement(
                 'td',
                 null,
-                '7'
+                '# 7'
             ),
             React.createElement(
                 'td',
                 null,
-                '8'
+                '# 8'
             ),
             React.createElement(
                 'td',
                 null,
-                '9'
+                '# 9'
             ),
             React.createElement(
                 'td',
                 null,
-                '10'
+                '# 10'
             )
         ),
         React.createElement(
@@ -133,16 +138,18 @@ var ScoreBoardRow = function (props) {
     var scores = row.map(score => React.createElement(
         'td',
         null,
-        score + '|'
+        score + ' '
     ));
     return scores;
 };
 
-var PinSelection = function (props) {
+var PinSelection = function ({ pinsRemaining }) {
+    var selectionArray = new Array(pinsRemaining).fill(1);
+    console.log(selectionArray);
     return React.createElement(
         'div',
         null,
-        props.pinsRemaining
+        selectionArray
     );
     // display pins available to hit
     // if ballNumber === 1: there are up to 10 pins
