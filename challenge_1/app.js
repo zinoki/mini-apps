@@ -3,7 +3,7 @@
 var squares = {
     square_0: 0,
     square_1: 1,
-    square_2: 2, 
+    square_2: 2,
     square_3: 3,
     square_4: 4,
     square_5: 5,
@@ -34,7 +34,7 @@ var render = function() {
     }
     checkWin();
     tieChecker();
-    
+
 }
 
 
@@ -118,15 +118,16 @@ var winHandler = function(player) {
     playerScores[player]++;
     document.getElementById("score").innerHTML = "Player O: " + playerScores['O'] + " Player X: " + playerScores['X'];
     document.getElementById("winner").innerHTML = "Player " + player + " wins!";
-    alert("Player " + player + " wins!");
+
     setTimeout(() => {
+        alert("Player " + player + " wins!");
         resetGame();
-    }, 300);
+    }, 500);
 }
 
 var tieChecker = function() {
     if (playCount === 9) {
-        document.getElementById("winner").innerHTML = "It was a tie!";       
+        document.getElementById("winner").innerHTML = "It was a tie!";
         resetGame();
     }
 }
