@@ -34,12 +34,13 @@ var isRowWin = function (rowIndex, colIndex, player) {
             inARow++;
             if (inARow === 4) {
                 console.log(player + ' wins!');
-                break;
+                return true;
             }
         } else {
             inARow = 0;
         }
     }
+    return false;
 };
 var isColumnWin = function (rowIndex, colIndex, player) {
     var inColumn = 0;
@@ -49,7 +50,7 @@ var isColumnWin = function (rowIndex, colIndex, player) {
             inColumn++;
             if (inColumn === 4) {
                 console.log(player + ' wins!');
-                break;
+                return true;
             }
         } else {
             inColumn = 0;
@@ -70,7 +71,7 @@ var isDiagonalWin = function (rowIndex, colIndex, player) {
             rightD++;
             if (rightD === 4) {
                 console.log(player + ' wins!');
-                break;
+                return true;
             }
         } else {
             rightD = 0;
@@ -82,7 +83,7 @@ var isDiagonalWin = function (rowIndex, colIndex, player) {
             leftD++;
             if (leftD === 4) {
                 console.log(player + ' wins!');
-                break;
+                return true;
             }
         } else {
             leftD = 0;
@@ -91,13 +92,15 @@ var isDiagonalWin = function (rowIndex, colIndex, player) {
             --colLeft;
         }
     }
+    return false;
 };
 
 // check for win
 var isWin = function (rowIndex, colIndex, player) {
-    isRowWin(rowIndex, colIndex, player);
-    isColumnWin(rowIndex, colIndex, player);
-    isDiagonalWin(rowIndex, colIndex, player);
+    if (isRowWin(rowIndex, colIndex, player) || isColumnWin(rowIndex, colIndex, player) || isDiagonalWin(rowIndex, colIndex, player)) {
+        return true;
+    }
+    return false;
 };
 
 class App extends React.Component {
@@ -118,7 +121,10 @@ class App extends React.Component {
         this.setState({ board: this.state.board });
         this.setState({ player_1_turn: !this.state.player_1_turn });
         this.setState({ player_2_turn: !this.state.player_2_turn });
-        isWin(rowIndex, colIndex, player);
+        if (isWin(rowIndex, colIndex, player)) {
+            console.log('look here!');
+            alert(player + ' wins!');
+        }
     }
     render() {
         return React.createElement(
