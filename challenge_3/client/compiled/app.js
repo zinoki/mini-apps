@@ -61,27 +61,20 @@ var Board = function (props) {
     return React.createElement(
         'table',
         { id: 'board' },
-        props.matrix.map(row => React.createElement(BoardRow, { row: row }))
+        props.matrix.map((row, rowIndex) => React.createElement(BoardRow, { row: row, rowIndex: rowIndex }))
     );
 };
-
-// var Board = function(props) {
-//   return (<table id="board">
-//   {props.matrix.map((row) => <tr>{row}</tr>
-// )}
-//     </table>
-//   );
-// }
-
 
 var BoardRow = function (props) {
     return React.createElement(
         'tr',
         null,
-        props.row.map(square => React.createElement(
+        props.row.map((square, colIndex) => React.createElement(
             'td',
             null,
-            square
+            square,
+            props.rowIndex,
+            colIndex
         ))
     );
 };
