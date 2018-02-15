@@ -2,8 +2,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            frame: 0,
-            playerScore: 0,
+            currentFrame: 0,
+            roundScores: [[2], [], [], [], [], [], [], [], [], []],
             strikeBallCounter: 0,
             pinsRemaining: 10,
             ballNumber: 1,
@@ -23,6 +23,11 @@ class App extends React.Component {
                 'div',
                 null,
                 React.createElement(PinSelection, { pinsRemaining: this.state.pinsRemaining })
+            ),
+            React.createElement(
+                'div',
+                null,
+                React.createElement(ScoreBoard, { roundScores: this.state.roundScores })
             )
         );
     }
@@ -34,6 +39,26 @@ var Board = function (props) {
         null,
         props.board
     );
+};
+
+var ScoreBoard = function (props) {
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h2',
+            null,
+            'Current Score'
+        ),
+        React.createElement(
+            'div',
+            null,
+            _.reduce(_.flatten([props.roundScores]), (a, b) => a + b)
+        )
+    );
+    // display pins available to hit
+    // if ballNumber === 1: there are up to 10 pins
+    // if after selection pinsRemaining = 0, 
 };
 
 var PinSelection = function (props) {
