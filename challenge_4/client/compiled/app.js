@@ -32,20 +32,42 @@ class App extends React.Component {
         );
     }
     bowl(numPins) {
+
         console.log('ball number', this.state.ballNumber);
         var frame = this.state.currentFrame;
         console.log('frame', frame);
+        if (this.state.pinsRemaining - numPins === 0 && this.state.ballNumber === 1) {
+            var strikes = this.state.strikeIndexes.slice();
+            strikes.push(frame);
+            this.setState({ strikeIndexes: strikes });
+            this.strikeHandler(strikes);
+        }
+        if (this.state.pinsRemaining - numPins === 0 && this.state.ballNumber === 2) {
+            var spares = this.state.spareIndexes.slice();
+            spares.push(frame);
+            this.setState({ spareIndexes: spares });
+            this.spareHandler(spares);
+        }
         var updatedScores = this.state.roundScores.slice();
         updatedScores[frame - 1].push(numPins);
         this.setState({ roundScores: updatedScores });
         this.setState({ pinsRemaining: this.state.pinsRemaining - numPins });
         this.setState({ ballNumber: ++this.state.ballNumber });
         if (this.state.pinsRemaining - numPins === 0) {
-            console.log('yes');
             this.setState({ currentFrame: ++this.state.currentFrame });
             this.setState({ pinsRemaining: 10 });
             this.setState({ ballNumber: 1 });
         }
+        console.log('pins remaining ', this.state.pinsRemaining - numPins);
+        console.log('ball number', this.state.ballNumber);
+
+        console.log('strikes', this.state.strikeIndexes);
+    }
+    strikeHandler(strikes) {
+        console.log('strike handlee', strikes);
+    }
+    spareHandler(spares) {
+        console.log('spare handler', spares);
     }
 }
 
