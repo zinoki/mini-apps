@@ -6,26 +6,26 @@ class App extends React.Component {
             ballNumber: 1,
             inStrikeMode: false,
             inSpareMode: false,
-            roundScores: [[10], [3, 6], [4, 4], [5, 4], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
+            roundScores: [[], [], [], [], [], [], [], [], [], []],
             pinsRemaining: 10
         };
     }
     render() {
         return React.createElement(
-            "div",
+            'div',
             null,
             React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(PinSelection, { pinsRemaining: this.state.pinsRemaining, bowl: this.bowl.bind(this) })
             ),
             React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(ScoreBoard, { roundScores: this.state.roundScores })
             ),
             React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(CurrentScore, { roundScores: this.state.roundScores })
             )
@@ -35,25 +35,27 @@ class App extends React.Component {
         var frame = this.state.currentFrame;
         var updatedScores = this.state.roundScores.slice();
         updatedScores[frame - 1].push(numPins);
-
         this.setState({ roundScores: updatedScores });
-
-        console.log(this.state.inStrikeMode);
-        // this.setState({pinsRemaining: this.pinsRemaining - numPins})
+        this.setState({ pinsRemaining: this.state.pinsRemaining - numPins });
+        if (this.state.pinsRemaining === 0) {
+            console.log('yes');
+            this.setState({ currentFrame: ++this.state.currentFrame });
+            this.setState({ pinsRemaining: 10 });
+        }
     }
 }
 
 var CurrentScore = function ({ roundScores }) {
     return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-            "h2",
+            'h2',
             null,
-            "Current Score"
+            'Current Score'
         ),
         React.createElement(
-            "div",
+            'div',
             null,
             _.reduce(_.flatten([roundScores]), (a, b) => a + b)
         )
@@ -61,69 +63,69 @@ var CurrentScore = function ({ roundScores }) {
 };
 var ScoreBoard = function ({ roundScores }) {
     return React.createElement(
-        "table",
-        { id: "scoreboard" },
+        'table',
+        { id: 'scoreboard' },
         React.createElement(
-            "th",
+            'th',
             null,
-            "Rounds"
+            'Rounds'
         ),
         React.createElement(
-            "tr",
+            'tr',
             null,
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 1"
+                '# 1'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 2"
+                '# 2'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 3"
+                '# 3'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 4"
+                '# 4'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 5"
+                '# 5'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 6"
+                '# 6'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 7"
+                '# 7'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 8"
+                '# 8'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 9"
+                '# 9'
             ),
             React.createElement(
-                "td",
+                'td',
                 null,
-                "# 10"
+                '# 10'
             )
         ),
         React.createElement(
-            "tr",
+            'tr',
             null,
             React.createElement(ScoreBoardRow, { cell: roundScores })
         )
@@ -132,7 +134,7 @@ var ScoreBoard = function ({ roundScores }) {
 
 var ScoreBoardRow = function ({ cell }) {
     var scores = cell.map(score => React.createElement(
-        "td",
+        'td',
         null,
         score + ' '
     ));
@@ -157,12 +159,12 @@ var PinSelection = function ({ pinsRemaining, bowl }) {
     var rowBuild = selectionArray.map(row => React.createElement(PinSelectionRow, { cell: row }));
 
     return React.createElement(
-        "table",
-        { id: "selection" },
-        selectionArray.map(row => React.createElement(
-            "tr",
+        'table',
+        { id: 'selection' },
+        selectionArray.map((row, index) => React.createElement(
+            'tr',
             null,
-            React.createElement(PinSelectionRow, { rows: row })
+            React.createElement(PinSelectionRow, { rows: row, bowl: bowl, rowIndex: index })
         ))
     );
     // display pins available to hit
@@ -170,20 +172,13 @@ var PinSelection = function ({ pinsRemaining, bowl }) {
     // if after selection pinsRemaining = 0, 
 };
 
-var PinSelectionRow = function ({ rows }) {
-    console.log(rows);
-    var keypad = rows.map(row => React.createElement(
-        "td",
-        null,
+var PinSelectionRow = function ({ rows, bowl, pinsRemaining, rowIndex }) {
+    var keypad = rows.map((row, index) => React.createElement(
+        'td',
+        { onClick: () => bowl(index + rowIndex * 3) },
         row
     ));
     return keypad;
-};
-
-var CellSelect = function ({ cell }) {
-    var cells = { cell };
-
-    return cells;
 };
 
 // make sure to put components in correct order (ReactDOM.render should always be bottom)

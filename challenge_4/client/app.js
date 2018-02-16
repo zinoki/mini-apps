@@ -6,7 +6,7 @@ class App extends React.Component {
             ballNumber: 1,
             inStrikeMode: false,
             inSpareMode: false,
-            roundScores: [[10], [3, 6], [4, 4], [5, 4], [7, 3, 4], [4, 2], [2, 3], [4, 2], [7, 2], [3, 3]],
+            roundScores: [[], [], [], [], [], [], [], [], [], []],
             pinsRemaining: 10
         };
     }
@@ -23,12 +23,14 @@ class App extends React.Component {
         var frame = this.state.currentFrame;
         var updatedScores = this.state.roundScores.slice();
         updatedScores[frame - 1].push(numPins);
-
-        
         this.setState({roundScores: updatedScores});
+        this.setState({pinsRemaining: this.state.pinsRemaining-numPins});
+        if (this.state.pinsRemaining === 0) {
+            console.log('yes')
+            this.setState({currentFrame: ++this.state.currentFrame})
+            this.setState({pinsRemaining: 10})
+        }
 
-        console.log(this.state.inStrikeMode);
-        // this.setState({pinsRemaining: this.pinsRemaining - numPins})
     }
 }
 
@@ -91,8 +93,8 @@ var PinSelection = function({pinsRemaining, bowl}) {
         
     return (
         <table id="selection">
-        {selectionArray.map(row => 
-          <tr><PinSelectionRow rows={row}/></tr>
+        {selectionArray.map((row, index) => 
+          <tr><PinSelectionRow rows={row} bowl={bowl} rowIndex={index}/></tr>
         )}
         
         </table>
@@ -102,21 +104,12 @@ var PinSelection = function({pinsRemaining, bowl}) {
     // if after selection pinsRemaining = 0, 
 }
 
-var PinSelectionRow = function({rows}) {
-    console.log(rows);
-    var keypad = rows.map(row => 
-    <td>{row}</td>);
+var PinSelectionRow = function({rows, bowl, pinsRemaining, rowIndex}) {
+    var keypad = rows.map((row, index) => 
+    <td onClick={()=> bowl(index+rowIndex*3)}>{row}</td>);
     return (
         keypad
     );
-}
-
-var CellSelect = function({cell}) {
-    var cells = {cell}
-
-    return (
-        cells
-    )
 }
 
 
