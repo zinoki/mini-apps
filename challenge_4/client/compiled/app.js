@@ -2,7 +2,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentFrame: 1,
+            currentFrame: 0,
             ballNumber: 1,
             strikeIndexes: [],
             spareIndexes: [],
@@ -53,7 +53,22 @@ class App extends React.Component {
 
         // update the scoreboard with numPins otherwise
         var updatedScores = this.state.roundScores.slice();
-        updatedScores[frame - 1].push(numPins);
+        updatedScores[frame].push(numPins);
+        // handle previous strikes
+        var strikes = this.state.strikeIndexes;
+        if (_.contains(strikes, frame - 1)) {
+            updatedScores[frame - 1].push(numPins);
+        }
+        // if (_.contains(strikes, frame - 2)) {
+        //     updatedScores[frame-1].push(numPins);
+        // }
+
+        // handle previous spares
+        var spares = this.state.spareIndexes;
+        if (_.contains(spares, frame - 1) && updatedScores[frame - 1].length === 2) {
+            updatedScores[frame - 1].push(numPins);
+        }
+
         this.setState({ roundScores: updatedScores });
         this.setState({ pinsRemaining: this.state.pinsRemaining - numPins });
         this.setState({ ballNumber: ++this.state.ballNumber });
@@ -66,8 +81,6 @@ class App extends React.Component {
         }
         console.log('pins remaining ', this.state.pinsRemaining - numPins);
         console.log('ball number', this.state.ballNumber);
-
-        console.log('strikes', this.state.strikeIndexes);
     }
     strikeHandler(strikes) {
         console.log('strike handlee', strikes);
