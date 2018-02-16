@@ -24,24 +24,30 @@ class App extends React.Component {
         console.log('ball number', this.state.ballNumber);
         var frame = this.state.currentFrame;
         console.log('frame', frame);
+        // handle strikes
         if ((this.state.pinsRemaining - numPins) === 0 && this.state.ballNumber === 1) {
             var strikes = this.state.strikeIndexes.slice();
             strikes.push(frame);
             this.setState({strikeIndexes: strikes});
             this.strikeHandler(strikes)
         }
+        // handle spares
         if ((this.state.pinsRemaining - numPins) === 0 && this.state.ballNumber === 2) {
             var spares = this.state.spareIndexes.slice();
             spares.push(frame);
             this.setState({spareIndexes: spares});
             this.spareHandler(spares)
         }
+
+        // update the scoreboard with numPins otherwise
         var updatedScores = this.state.roundScores.slice();
         updatedScores[frame - 1].push(numPins);
         this.setState({roundScores: updatedScores});
         this.setState({pinsRemaining: this.state.pinsRemaining-numPins});
         this.setState({ballNumber: ++this.state.ballNumber})
-        if (this.state.pinsRemaining-numPins === 0) {
+
+        // if there are no pins remaining or ball number is greater than 2 reset the pins and move to next frame
+        if (this.state.pinsRemaining-numPins === 0 || this.state.ballNumber > 2) {
             this.setState({currentFrame: ++this.state.currentFrame})
             this.setState({pinsRemaining: 10})
             this.setState({ballNumber: 1})
