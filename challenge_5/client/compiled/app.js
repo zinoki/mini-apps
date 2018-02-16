@@ -4,6 +4,7 @@ var boardMaker = function () {
 };
 
 var checkerBoard = boardMaker();
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -16,30 +17,28 @@ class App extends React.Component {
         return React.createElement(
             'div',
             null,
-            React.createElement(
-                'div',
-                null,
-                'hiiiii'
-            ),
-            React.createElement(Board, null)
+            React.createElement(Board, { board: this.state.board })
         );
     }
 }
 
-var Board = function (props) {
+var Board = function ({ board }) {
     return React.createElement(
-        'div',
+        'table',
         null,
-        'This is board',
-        React.createElement(BoardRow, null)
+        board.map((row, index) => React.createElement(BoardRow, { row: row, rowIndex: index }))
     );
 };
 
-var BoardRow = function (props) {
+var BoardRow = function ({ row, rowIndex }) {
     return React.createElement(
-        'div',
+        'tr',
         null,
-        'This is board row'
+        row.map((square, colIndex) => React.createElement(
+            'td',
+            null,
+            square
+        ))
     );
 };
 

@@ -12,9 +12,12 @@ var boardMaker = function() {
     return board;
 }
 
-
-
 var checkerBoard = boardMaker();
+
+
+
+
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -26,8 +29,7 @@ class App extends React.Component {
         console.log(this.state.board);
         return (
             <div>
-        <div>hiiiii</div>
-        <Board />
+        <Board board={this.state.board}/>
         </div>
         )
     }
@@ -35,19 +37,25 @@ class App extends React.Component {
 
 
 
-var Board = function(props) {
+var Board = function({board}) {
     return (
-        <div>This is board
-            <BoardRow />
-        </div>
-        
+        <table>
+            {board.map((row, index) => (
+               <BoardRow row={row} rowIndex={index}/>
+            ))}
+            
+        </table>
     );
 }
 
 
-var BoardRow = function(props) {
+var BoardRow = function({row, rowIndex}) {
     return (
-        <div>This is board row</div>
+        <tr>
+        {row.map((square, colIndex) => (
+            <td>{square}</td>
+        ))}
+        </tr>
     )
 }
 
