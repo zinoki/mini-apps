@@ -11,6 +11,9 @@ var boardMaker = function() {
     ]
     return board;
 }
+
+
+
 var checkerBoard = boardMaker();
 class App extends React.Component {
     constructor(props) {
@@ -22,9 +25,37 @@ class App extends React.Component {
     render() {
         console.log(this.state.board);
         return (
+            <div>
         <div>hiiiii</div>
+        <Board />
+        </div>
         )
     }
 }
+
+
+
+var Board = function(props) {
+    return (
+        <div>This is board
+            <BoardRow />
+        </div>
+        
+    );
+}
+
+
+var BoardRow = function(props) {
+    return (
+        <div>This is board row</div>
+    )
+}
+
+
+
+
+
+
+
 
 ReactDOM.render(<App />, document.getElementById("app"));
