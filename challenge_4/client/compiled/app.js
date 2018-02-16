@@ -59,6 +59,9 @@ class App extends React.Component {
         if (_.contains(strikes, frame - 1)) {
             updatedScores[frame - 1].push(numPins);
         }
+        if (_.contains(strikes, frame - 2) && _.contains(strikes, frame - 1)) {
+            updatedScores[frame - 2].push(numPins);
+        }
         // if (_.contains(strikes, frame - 2)) {
         //     updatedScores[frame-1].push(numPins);
         // }
