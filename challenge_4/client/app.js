@@ -4,8 +4,8 @@ class App extends React.Component {
         this.state = {
             currentFrame: 1,
             ballNumber: 1,
-            inStrikeMode: false,
-            inSpareMode: false,
+            strikeIndexes: [],
+            spareIndexes: [],
             roundScores: [[], [], [], [], [], [], [], [], [], []],
             pinsRemaining: 10
         };
@@ -20,16 +20,21 @@ class App extends React.Component {
         );
     }
     bowl(numPins) {
+        console.log('ball number', this.state.ballNumber);
         var frame = this.state.currentFrame;
+        console.log('frame', frame);
         var updatedScores = this.state.roundScores.slice();
         updatedScores[frame - 1].push(numPins);
         this.setState({roundScores: updatedScores});
         this.setState({pinsRemaining: this.state.pinsRemaining-numPins});
-        if (this.state.pinsRemaining === 0) {
+        this.setState({ballNumber: ++this.state.ballNumber})
+        if (this.state.pinsRemaining-numPins === 0) {
             console.log('yes')
             this.setState({currentFrame: ++this.state.currentFrame})
             this.setState({pinsRemaining: 10})
+            this.setState({ballNumber: 1})
         }
+        
 
     }
 }
@@ -73,7 +78,6 @@ var ScoreBoardRow = function({cell}) {
 }
 
 var PinSelection = function({pinsRemaining, bowl}) {
-    // bowl(3);
     var selectionArray = [[], [], [], []];
     for (var i = 0; i <= pinsRemaining; i++) {
         if (i <= 2) {
@@ -99,9 +103,6 @@ var PinSelection = function({pinsRemaining, bowl}) {
         
         </table>
     )
-    // display pins available to hit
-    // if ballNumber === 1: there are up to 10 pins
-    // if after selection pinsRemaining = 0, 
 }
 
 var PinSelectionRow = function({rows, bowl, pinsRemaining, rowIndex}) {
