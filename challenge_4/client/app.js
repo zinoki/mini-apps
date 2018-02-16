@@ -32,14 +32,13 @@ class App extends React.Component {
                 var strikes = this.state.strikeIndexes.slice();
                 strikes.push(frame);
                 this.setState({strikeIndexes: strikes});
-                this.strikeHandler(strikes)
+                // this.strikeHandler(strikes)
             }
             // handle spares
             if ((this.state.pinsRemaining - numPins) === 0 && this.state.ballNumber === 2) {
                 var spares = this.state.spareIndexes.slice();
                 spares.push(frame);
                 this.setState({spareIndexes: spares});
-                this.spareHandler(spares)
             }
     
             // update the scoreboard with numPins otherwise
@@ -82,25 +81,11 @@ class App extends React.Component {
             updatedScores[frame - 1].push(numPins);
             this.setState({roundScores: updatedScores});
 
-        } else if (_.contains(this.state.spareIndexes, frame - 1) && (this.state.roundScores[frame-1].length < 2)) {
+        } else if (_.contains(this.state.spareIndexes, frame - 1) && (this.state.roundScores[frame-1].length < 3)) {
             updatedScores[frame - 1].push(numPins);
             this.setState({roundScores: updatedScores});
 
         } 
-
-    }
-    strikeHandler(strikes) {
-        var frame = this.state.currentFrame;
-        if (frame === 9 ) {
-            var updateScores = this.state.roundScores.slice();
-            updateScores.push([]);
-            this.setState({roundScores: updateScores});
-            console.log('you made it', this.state.roundScores)
-        }
-
-    }
-    spareHandler(spares) {
-        console.log('spare handler', spares);
 
     }
 }
@@ -179,8 +164,6 @@ var PinSelectionRow = function({rows, bowl, pinsRemaining, rowIndex}) {
     );
 }
 
-
-// make sure to put components in correct order (ReactDOM.render should always be bottom)
 
 ReactDOM.render(
     <App />,
