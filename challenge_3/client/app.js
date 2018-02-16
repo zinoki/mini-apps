@@ -130,10 +130,10 @@ class App extends React.Component {
         this.setState({player_2_turn: !this.state.player_2_turn});
 
         if(isWin(rowIndex, colIndex, player)) {
+          // this.setState({board: boardMaker(6, 7)})
           setTimeout(() => {
-          alert(player + ' wins!')}, 500)
-
-
+          alert(player + ' wins!')}, 100)
+          // this.setState({board: boardMaker(6, 7)})
         }
 
     }

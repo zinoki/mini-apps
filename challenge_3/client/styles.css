@@ -6,8 +6,8 @@
 td {
     border: 2px solid;
     padding: 10px 15px;
-    width: 60px;
-    height: 60px;
+    width: 13%;
+    height: 13%;
     border-radius: 50%;
     color: white;
 }
@@ -18,12 +18,14 @@ table {
 }
 .red {
     background-color: red;
+    font-size: 1px;
     color: red;
 }
 
 .black {
     background-color: black;
     color: black;
+    font-size: 1px;
 }
 
 .cell {
