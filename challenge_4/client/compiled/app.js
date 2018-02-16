@@ -33,60 +33,74 @@ class App extends React.Component {
     }
     bowl(numPins) {
 
-        console.log('ball number', this.state.ballNumber);
         var frame = this.state.currentFrame;
-        console.log('frame', frame);
-        // handle strikes
-        if (this.state.pinsRemaining - numPins === 0 && this.state.ballNumber === 1) {
-            var strikes = this.state.strikeIndexes.slice();
-            strikes.push(frame);
-            this.setState({ strikeIndexes: strikes });
-            this.strikeHandler(strikes);
-        }
-        // handle spares
-        if (this.state.pinsRemaining - numPins === 0 && this.state.ballNumber === 2) {
-            var spares = this.state.spareIndexes.slice();
-            spares.push(frame);
-            this.setState({ spareIndexes: spares });
-            this.spareHandler(spares);
-        }
-
-        // update the scoreboard with numPins otherwise
         var updatedScores = this.state.roundScores.slice();
-        updatedScores[frame].push(numPins);
-        // handle previous strikes
-        var strikes = this.state.strikeIndexes;
-        if (_.contains(strikes, frame - 1)) {
-            updatedScores[frame - 1].push(numPins);
-        }
-        if (_.contains(strikes, frame - 2) && _.contains(strikes, frame - 1)) {
+
+        if (frame <= 9) {
+            console.log('frame', frame);
+            // handle strikes
+            if (this.state.pinsRemaining - numPins === 0 && this.state.ballNumber === 1) {
+                var strikes = this.state.strikeIndexes.slice();
+                strikes.push(frame);
+                this.setState({ strikeIndexes: strikes });
+                this.strikeHandler(strikes);
+            }
+            // handle spares
+            if (this.state.pinsRemaining - numPins === 0 && this.state.ballNumber === 2) {
+                var spares = this.state.spareIndexes.slice();
+                spares.push(frame);
+                this.setState({ spareIndexes: spares });
+                this.spareHandler(spares);
+            }
+
+            // update the scoreboard with numPins otherwise
+            updatedScores[frame].push(numPins);
+
+            // handle previous strikes
+            var strikes = this.state.strikeIndexes;
+            if (_.contains(strikes, frame - 1)) {
+                updatedScores[frame - 1].push(numPins);
+            }
+            if (_.contains(strikes, frame - 2) && _.contains(strikes, frame - 1)) {
+                updatedScores[frame - 2].push(numPins);
+            }
+
+            // handle previous spares
+            var spares = this.state.spareIndexes;
+            if (_.contains(spares, frame - 1) && updatedScores[frame - 1].length === 2) {
+                updatedScores[frame - 1].push(numPins);
+            }
+
+            this.setState({ roundScores: updatedScores });
+            this.setState({ pinsRemaining: this.state.pinsRemaining - numPins });
+            this.setState({ ballNumber: ++this.state.ballNumber });
+
+            // if there are no pins remaining or ball number is greater than 2 reset the pins and move to next frame
+            if (this.state.pinsRemaining - numPins === 0 || this.state.ballNumber > 2) {
+                this.setState({ currentFrame: ++this.state.currentFrame });
+                this.setState({ pinsRemaining: 10 });
+                this.setState({ ballNumber: 1 });
+            }
+        } else if (_.contains(this.state.strikeIndexes, frame - 1) && this.state.roundScores[frame - 2].length < 3) {
             updatedScores[frame - 2].push(numPins);
-        }
-        // if (_.contains(strikes, frame - 2)) {
-        //     updatedScores[frame-1].push(numPins);
-        // }
-
-        // handle previous spares
-        var spares = this.state.spareIndexes;
-        if (_.contains(spares, frame - 1) && updatedScores[frame - 1].length === 2) {
             updatedScores[frame - 1].push(numPins);
+            this.setState({ roundScores: updatedScores });
+        } else if (_.contains(this.state.strikeIndexes, frame - 1) && this.state.roundScores[frame - 1].length < 3) {
+            updatedScores[frame - 1].push(numPins);
+            this.setState({ roundScores: updatedScores });
+        } else if (_.contains(this.state.spareIndexes, frame - 1) && this.state.roundScores[frame - 1].length < 2) {
+            updatedScores[frame - 1].push(numPins);
+            this.setState({ roundScores: updatedScores });
         }
-
-        this.setState({ roundScores: updatedScores });
-        this.setState({ pinsRemaining: this.state.pinsRemaining - numPins });
-        this.setState({ ballNumber: ++this.state.ballNumber });
-
-        // if there are no pins remaining or ball number is greater than 2 reset the pins and move to next frame
-        if (this.state.pinsRemaining - numPins === 0 || this.state.ballNumber > 2) {
-            this.setState({ currentFrame: ++this.state.currentFrame });
-            this.setState({ pinsRemaining: 10 });
-            this.setState({ ballNumber: 1 });
-        }
-        console.log('pins remaining ', this.state.pinsRemaining - numPins);
-        console.log('ball number', this.state.ballNumber);
     }
     strikeHandler(strikes) {
-        console.log('strike handlee', strikes);
+        var frame = this.state.currentFrame;
+        if (frame === 9) {
+            var updateScores = this.state.roundScores.slice();
+            updateScores.push([]);
+            this.setState({ roundScores: updateScores });
+            console.log('you made it', this.state.roundScores);
+        }
     }
     spareHandler(spares) {
         console.log('spare handler', spares);
